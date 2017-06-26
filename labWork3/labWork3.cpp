@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
+#include <string.h>
 
 int stringToDigit(char *c)
 {
@@ -45,15 +46,47 @@ void digitToString(int digit, char *s,int n)
 	revers(s);
 }
 
+//находим и вырезаем то, что между внутрен {} скобками в строке
+void findBraces(char *str1, char *str2)
+{
+	int b = 0;
+	int maxb = 0;
+	for (int i = 0; str1[i] != '}'; i++)
+	{
+		if (str1[i] == '{')
+		{
+			maxb = i;
+		}
+	}
+	maxb++;
+
+	for (int i = maxb, j = 0; str1[i] != '\0'; i++, j++)
+	{
+		str2[j] = str1[i];
+
+		if (str1[i + 1] == '}')
+		{
+			int len = strlen(str2);
+			for (int b = maxb; str1[b] != '\0'; b++)
+				str1[b] = str1[b + len];
+			break;
+		}
+	}
+}
+
 int main()
 {
-	const int n = 8;
-	char str1[n] = "ABc1450";
-	char str2[n];
-	int a = stringToDigit(str1);
+	const int n = 50;
+	char str1[n] = "A11{2{31{ir}2}32t}04";
+	char str2[n] = "";
+	char str3[n] = "";
+	/*int a = stringToDigit(str1);
 	digitToString(a, str2, n);
 	printf("%s\n%d\n",str1, a);
-	printf("%s\n",str2);
+	printf("%s\n",str2);*/
+	findBraces(str1, str3);
+	printf("%s\n", str1);
+	printf("%s\n", str3);
 	_getch();
 
 }
