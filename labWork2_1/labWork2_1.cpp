@@ -10,19 +10,6 @@ bool seachWords(char str, char subStr)
 	return(subStr != '\0'&&str != '\0'&&str == subStr);
 }
 
-//bool strstr(char* A, char* B, int n)
-//{
-//	for (int i = 0; A[i] != '\0'&& B[i] != '\0'&& i < n; i++) 
-//	{
-//		if (A[i] == B[i]);
-//		else
-//		{
-//			return 0;
-//		}
-//	}
-//	return 1;
-//}
-
 int findstr(char* str, char* subStr, int* index)
 {
 	int len = strlen(str);
@@ -47,7 +34,6 @@ int findstr(char* str, char* subStr, int* index)
 	}
 	return -1;	
 }
-
 void main()
 {	
 	system("color F0 ");
