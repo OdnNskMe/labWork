@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 void swap(int*glass1, int*glass2)
 {
@@ -50,14 +51,14 @@ void menu()
 }
 
 void sortBubble(int A[], int n, time_t &time, int &countConpare, int &countSwap)
-{		
+{
 	bool isSwap;
-	do 
+	do
 	{
 		isSwap = false;
 		int lastSwap = 0;
 		for (int i = 0; i < n - 1; i++)
-		{			
+		{
 			if (A[i] > A[i + 1])
 			{
 				countSwap++;
@@ -65,29 +66,29 @@ void sortBubble(int A[], int n, time_t &time, int &countConpare, int &countSwap)
 				isSwap = true;
 				lastSwap = i + 1;
 				countConpare++;
-			}			
+			}
 		}
 		n = lastSwap;
-		countConpare++;		
+		countConpare++;
 	} while (isSwap);
 	time = clock() - time;
 }
 
 void sortShaker(int A[], int n, time_t &time, int &countConpare, int &countSwap)
-{	
+{
 	int a = 0, b = n, step = 1;
 	while (b - a > 1)
-	{		
+	{
 		if (step == 1)
 		{
 			int last = a;
 			for (int i = a; i < b - 1; i++)
-			{				
+			{
 				if (A[i] > A[i + 1])
 				{
 					countSwap++;
 					swap(&A[i], &A[i + 1]);
-					last = i+1;
+					last = i + 1;
 					countConpare++;
 				}
 			}
@@ -102,8 +103,8 @@ void sortShaker(int A[], int n, time_t &time, int &countConpare, int &countSwap)
 				if (A[i - 1] > A[i])
 				{
 					countSwap++;
-					swap(&A[i-1], &A[i]);
-					last = i-1;
+					swap(&A[i - 1], &A[i]);
+					last = i - 1;
 					countConpare++;
 				}
 			}
@@ -112,29 +113,29 @@ void sortShaker(int A[], int n, time_t &time, int &countConpare, int &countSwap)
 		step *= -1;
 		countConpare++;
 	}
-	time = clock() - time;	
+	time = clock() - time;
 }
 
 void sortSelect(int A[], int n, time_t &time, int &countConpare, int &countSwap)
-{	
+{
 	for (int i = 0; i < n - 1; i++)
 	{
 		int min = i;
 		for (int j = i + 1; j < n; j++)
-		{			
+		{
 			if (A[j] < A[min])
 			{
 				countConpare++;
 				min = j;
-			}				
-		}		
+			}
+		}
 		if (i != min)
 		{
 			countSwap++;
 			swap(&A[i], &A[min]);
 			countConpare++;
 		}
-			
+
 	}
 	time = clock() - time;
 }
@@ -147,23 +148,23 @@ void sortQuick(int A[], int a, int b, time_t &time, int &countConpare, int &coun
 		for (int i = a; i < b; i++)
 			sr += A[i];//находим сумму массива
 		sr /= (b - a);//рассчет средней арифмет
-		//грани сортировки
+					  //грани сортировки
 		int i = a;
 		int j = b - 1;
 		while (i<j)
-		{			
+		{
 			if (A[i] <= sr)
 			{
 				i++;
 				countConpare++;
 			}
 			else
-			{				
+			{
 				if (A[j] > sr)
 				{
 					countConpare++;
 					j--;
-				}					
+				}
 				else
 				{
 					countSwap++;
@@ -177,11 +178,11 @@ void sortQuick(int A[], int a, int b, time_t &time, int &countConpare, int &coun
 		sortQuick(A, a, i, time, countConpare, countSwap);
 		sortQuick(A, i, b, time, countConpare, countSwap);
 	}
-	time = clock() - time;	
+	time = clock() - time;
 }
 
 void sortMerge(int A[], int a, int b, time_t &time, int &countConpare, int &countSwap)
-{	
+{
 	if (b - a > 1)
 	{
 		int center = (a + b) / 2;
@@ -191,7 +192,7 @@ void sortMerge(int A[], int a, int b, time_t &time, int &countConpare, int &coun
 		int i = 0;
 		int j = 0;
 		while (a + i < center&&center + j < b)
-		{			
+		{
 			if (A[a + i] < A[center + j])
 			{
 				Temp[i + j] = A[a + i];
@@ -218,94 +219,82 @@ void sortMerge(int A[], int a, int b, time_t &time, int &countConpare, int &coun
 			j++;
 			countConpare++;
 		}
-		for (int i = 0; i < b-a; i++)
+		for (int i = 0; i < b - a; i++)
 		{
 			A[a + i] = Temp[i];
 		}
 		delete[]Temp;
 	}
 	time = clock() - time;
-	
+
 }
 
-void main()
+int main(int argc, char* argv[])
 {
-	const int N = 100;
-	int Z = 100;
-	int A[N];
-	int B[N];
-	int action;
+	char* sort = argv[1];
+	int N = atoi(argv[2]);//размерность массива
+	int Z = atoi(argv[3]);//размер рандома
+	int* A = (int*)malloc(sizeof(int) * N);
+	int* B = (int*)malloc(sizeof(int) * N);
+	
 	time_t time;
 	int countConpare = 0;
 	int countSwap = 0;
-
-	masNumb(A, N, Z);
-	outPut(A, N, "massiv");
-	do {
-		//outPut(A, N,"massiv");
-		menu();		
-		scanf_s("%d", &action);
-		switch (action)
-		{
-		case(1):
-		{	
-			time = clock();
-			countConpare = 0;
-			countSwap = 0;
-			masWorkB(A,B,N);
-			sortBubble(B, N, time, countConpare, countSwap);
-			outPut(B, N,"Bubble");
-			Print("time_Bubble", time, "conpare_Bubble", countConpare, "swap_Bubble", countSwap);
-		}
-			break;
-		case(2):
-		{
-			time = clock();
-			countConpare = 0;
-			countSwap = 0;
-			masWorkB(A, B, N);
-			sortShaker(B, N, time, countConpare, countSwap);
-			outPut(B, N,"Sheker");
-			Print("time_Shaker", time, "conpare_Shaker", countConpare, "swap_Shaker", countSwap);
-		}
-			break;
-		case(3):
-		{
-			time = clock();
-			countConpare = 0;
-			countSwap = 0;
-			masWorkB(A, B, N);
-			sortSelect(B, N, time, countConpare, countSwap);
-			outPut(B, N,"Select");
-			Print("time_Select", time, "conpare_Select", countConpare, "swap_Select", countSwap);
-		}
-			break;
-		case(4):
-		{
-			time = clock();
-			countConpare = 0;
-			countSwap = 0;
-			masWorkB(A, B, N);
-			sortMerge(B,0, N, time, countConpare, countSwap);
-			outPut(B, N, "Merge");
-			Print("time_Merge", time, "conpare_Merge", countConpare, "swap_Merge", countSwap);
-		}
-		break;
-		case(5):
-		{
-			time = clock();
-			countConpare = 0;
-			countSwap = 0;
-			masWorkB(A, B, N);
-			sortQuick(B,0, N, time, countConpare, countSwap);
-			outPut(B, N, "Quick");
-			Print("time_Quick", time, "conpare_Quick", countConpare, "swap_Quick", countSwap);
-		}
-		break;
-
-		default:
-			break;
-		}
-		
-	} while (action != 0);
+	masNumb(A, N, Z);	
+	
+	if (strcmp(sort, "bublle") != 0)
+	{
+		time = clock();
+		countConpare = 0;
+		countSwap = 0;
+		masWorkB(A, B, N);
+		sortBubble(B, N, time, countConpare, countSwap);
+		outPut(B, N, "Bubble");
+		Print("time_Bubble", time, "conpare_Bubble", countConpare, "swap_Bubble", countSwap);
+	}
+	else 	
+		if (strcmp(sort, "shaker") != 0)
+	{
+		time = clock();
+		countConpare = 0;
+		countSwap = 0;
+		masWorkB(A, B, N);
+		sortShaker(B, N, time, countConpare, countSwap);
+		outPut(B, N, "Sheker");
+		Print("time_Shaker", time, "conpare_Shaker", countConpare, "swap_Shaker", countSwap);
+	}
+	else 
+		if (strcmp(sort, "select") != 0)
+	{
+		time = clock();
+		countConpare = 0;
+		countSwap = 0;
+		masWorkB(A, B, N);
+		sortSelect(B, N, time, countConpare, countSwap);
+		outPut(B, N, "Select");
+		Print("time_Select", time, "conpare_Select", countConpare, "swap_Select", countSwap);
+	}
+	else 
+		if (strcmp(sort, "merge") != 0)
+	{
+		time = clock();
+		countConpare = 0;
+		countSwap = 0;
+		masWorkB(A, B, N);
+		sortMerge(B, 0, N, time, countConpare, countSwap);
+		outPut(B, N, "Merge");
+		Print("time_Merge", time, "conpare_Merge", countConpare, "swap_Merge", countSwap);
+	}
+	else 
+		if (strcmp(sort, "quick") != 0)
+	{
+		time = clock();
+		countConpare = 0;
+		countSwap = 0;
+		masWorkB(A, B, N);
+		sortQuick(B, 0, N, time, countConpare, countSwap);
+		outPut(B, N, "Quick");
+		Print("time_Quick", time, "conpare_Quick", countConpare, "swap_Quick", countSwap);
+	}
+	return 0;
 }

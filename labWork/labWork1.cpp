@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <stdlib.h>
 #include <math.h>
+#include <cstdlib>
 
 //сделаем меню
 void menu()
@@ -55,8 +56,6 @@ int Work_Average_Arithmetic(int a[], int v[], int n)
 				c = a[i];
 			}
 		}	
-	//printf("----------\n");
-	//printf("Average = %d | %d \n", average, c);//вывод на экран значени€ сред арифмет
 	return c;
 }
 //наиболее повтор€ющеес€ число в массиве
@@ -82,9 +81,7 @@ int Work_Max_Repet(int a[],int v[],int n)
 						g = a[i];
 					}					
 			}		
-	}
-	/*printf("----------\n");
-	printf("max povtor = %d | %d\n", g, d);*/
+	}	
 	return g;
 }
 //******** это блок функций дл€ нахождени€ NOK и NOD **********
@@ -155,9 +152,7 @@ int Work_NOK(int a[], int n)
 		{			
 			answer = NOK(a[i], a[i+1]);
 		}			
-	}
-	/*printf("----------\n");
-	printf("Work_HOK = %d \n", answer);*/
+	}	
 	return answer;
 }
 
@@ -194,8 +189,7 @@ int Lab_9(int a[], int n)
 			k+=1;
 		}
 		
-	}
-	
+	}	
 	/*printf("----------\n");
 	printf("Work_Lab_9 sum1 =%d sum2=%d k=%d\n", sum1, sum2,k);*/
 	return k;
@@ -208,7 +202,8 @@ void Print(char *title, int result)
 
 int main()
 {
-	const int N = 10;//размерность массива
+	system("color F0 ");
+	const int N = 20;//размерность массива
 	const int Z = 10;//размер рандома	
 	int A[N];
 	int V[N];
@@ -226,33 +221,25 @@ int main()
 			{
 				int result = Work_Max_Repet(A, V, N);
 				Print("max povtor", result);
-			}
-			/*printf("max povtor = %d\n", Work_Max_Repet(A, V, N));
-			Work_Max_Repet(A, V, N);*/
+			}			
 			break;
 		case 2:
 			{
 				int result = Work_Average_Arithmetic(A, V, N);
 				Print("Average", result); 
-			}
-			/*Work_Average_Arithmetic(A, V, N);
-			printf("Average = %d \n", Work_Average_Arithmetic(A, V, N));*/
+			}			
 			break;
 		case 3:
 			{
 				int result = Work_NOK(A, N);
 				Print("Work_HOK", result);
-			}
-			/*Work_NOK(A, N);
-			printf("Work_HOK = %d \n", Work_NOK(A, N));*/
+			}			
 			break;		
 		case 4:
 			{
 				int result = Lab_9(A, N);
 				Print("Work_Lab_9", result);
-			}
-			/*printf("Work_Lab_9 k=%d\n", Lab_9(A, N));
-			Lab_9(A, N);*/
+			}			
 			break;		
 		default:
 			break;
