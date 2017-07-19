@@ -1,0 +1,9 @@
+diff a/labWork2_1/labWork2_1.cpp b/labWork2_1/labWork2_1.cpp	(rejected hunks)
+@@ -34,7 +34,6 @@
+ 	}
+ 	return -1;	
+ }
+-
+ void main()
+ {	
+ 	system("color F0 ");

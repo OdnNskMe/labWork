@@ -34,6 +34,7 @@ int findstr(char* str, char* subStr, int* index)
 	}
 	return -1;	
 }
+
 void main()
 {	
 	system("color F0 ");
